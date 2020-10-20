@@ -1,12 +1,16 @@
 ﻿using System;
 
-namespace Interfaces.IBankAccount
+
+namespace Interfaces
 {
 	public interface IBankAccount
 	{
-         double balance { get; set; };
-		 int pin { get; set; };
-		 int accountNumber { get; set};
+          double balance { get; set; }
+		// int pin { get; set; }
+		 int accountNumber { get; set; }
+
+		  
+
 
 
       
