@@ -19,12 +19,12 @@ namespace BankAccountManager
         //calculating the balance of both accounts
         public void GeneralBalance()
         {
-            double GeneralBalance = checkingAccount.balance + savingAccount.balance;
+            double GeneralBalance = checkingAccount.Balance + savingAccount.Balance;
             Console.WriteLine("Your balance for both accounts is " + GeneralBalance);
         }
 
 
-
+     
     }
 
 }

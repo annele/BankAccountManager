@@ -1,6 +1,7 @@
 ﻿
 using System;
 using Interfaces;
+using Microsoft.VisualBasic;
 
 namespace BankAccounts
 {
@@ -11,28 +12,29 @@ namespace BankAccounts
 		
 		private double interest;
 		private double withdrawFee;
-      
+		private double balance;
 
-       
-
-        public double balance
+		public double Balance
 		{
-			get => throw new NotImplementedException(); 
+			get
+			{
+				return balance;
+			}
+			set
+			{
+				balance = value;
+			}
+		}
+
+
+
+		double IBankAccount.Amount
+		{
+			get => throw new NotImplementedException();
 			set => throw new NotImplementedException();
 		}
 
-
-		public int accountNumber 
-		{ 
-			get => throw new NotImplementedException(); 
-			set => throw new NotImplementedException(); 
-		}
-		//public int pin 
-		//{ 
-		//	get => throw new NotImplementedException(); 
-		//	set => throw new NotImplementedException(); 
-	//	}
-
+	
 		public double Interest
         {
             get {
@@ -79,7 +81,7 @@ namespace BankAccounts
 			}
 			else
 			{
-				Console.WriteLine("Pleease enter velid deposit amount");
+				Console.WriteLine("Pleease enter valid deposit amount");
 				isSavingDepositSuccessfull = false;
 			}
 
@@ -89,7 +91,29 @@ namespace BankAccounts
 
 		public bool Withdraw(double amount)
 		{
+			bool isWithdrawSavingSuccessfull;
 
+			Console.WriteLine("Please enter the withdraw amount");
+			amount = Convert.ToDouble(Console.ReadLine());
+
+			if (amount<=balance && amount <= 5000)
+            {
+				balance -= amount;
+				isWithdrawSavingSuccessfull = true;
+
+            } else if (amount > 5000 && amount+withdrawFee <= balance)
+            {
+				balance -= amount + withdrawFee;
+				isWithdrawSavingSuccessfull = true;
+			}
+            else
+            {
+				Console.WriteLine("Pleease enter valid deposit amount");
+				isWithdrawSavingSuccessfull = false;
+			}
+
+			return isWithdrawSavingSuccessfull;
+			
 		}
 
 	}

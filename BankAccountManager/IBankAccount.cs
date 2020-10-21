@@ -5,17 +5,10 @@ namespace Interfaces
 {
 	public interface IBankAccount
 	{
-          double balance { get; set; }
-		// int pin { get; set; }
-		 int accountNumber { get; set; }
-
-		  
-
-
-
-      
-			bool Withdraw(double amount);
-			bool Deposit(double amount);
+            public double Amount { get; set; }
+ 
+			public bool Withdraw(double amount);
+			public bool Deposit(double amount);
 
 		
 

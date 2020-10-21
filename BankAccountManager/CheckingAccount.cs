@@ -8,22 +8,25 @@ namespace BankAccounts
 	public class CheckingAccount : IBankAccount
 	{
 
-		public double balance
-		{
-			get => throw new NotImplementedException();
-			set => throw new NotImplementedException();
+        private double balance;
+
+		public double Balance
+        {
+			get
+			{
+				return balance;
+			}
+			set
+			{
+				balance = value;
+			}
+		}
+         double IBankAccount.Amount 
+		{   get => throw new NotImplementedException(); 
+			set => throw new NotImplementedException(); 
 		}
 
-
-		public int accountNumber
-		{
-			get => throw new NotImplementedException();
-			set => throw new NotImplementedException();
-		}
-	
-	
-
-		public bool Deposit(double amount)
+        public bool Deposit(double amount)
 		{
             bool isCheckingDepositSuccessfull;
 
@@ -52,11 +55,15 @@ namespace BankAccounts
 		{
 			bool isCheckingWithdrawSuccessfull;
 
-			if(amount<=balance)
-            {
+			Console.WriteLine("Please enter the withdraw amount");
+			amount = Convert.ToDouble(Console.ReadLine());
+
+			if (amount <= balance)
+			{
 				balance -= amount;
 				isCheckingWithdrawSuccessfull = true;
-            } else amount>balance
+			}
+			else 
             {
 				Console.WriteLine("Not enough money to perform the operation, please enter the valid withdraw amount");
 				isCheckingWithdrawSuccessfull = false;
