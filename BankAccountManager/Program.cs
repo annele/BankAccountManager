@@ -6,8 +6,7 @@ namespace BankAccountManager
 {
     class Program
     {
-        CheckingAccount checkingAccount = new CheckingAccount();
-        SavingAccount savingAccount = new SavingAccount();
+        
         static void Main(string[] args)
         {
             Console.WriteLine("Hello World!");
@@ -15,14 +14,10 @@ namespace BankAccountManager
         }
 
        
-
-        //calculating the balance of both accounts
-        public void GeneralBalance()
+        public void MakeTransfer(IBankAccount account)
         {
-            double GeneralBalance = checkingAccount.Balance + savingAccount.Balance;
-            Console.WriteLine("Your balance for both accounts is " + GeneralBalance);
-        }
 
+        }
 
      
     }
