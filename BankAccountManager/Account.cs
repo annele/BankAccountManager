@@ -2,27 +2,16 @@
 {
     partial class Account : IBankAccount
     {
+
+
+
         private double amount;
         private double balance;
         private double withdrawFee;
         private double withdrawLimit;
         private double interest;
 
-        public Account(double amount, double balance, double withdrawFee, double withdrawLimit, double interest)
-        {
-            this.amount = amount;
-            this.balance = balance;
-            this.withdrawFee = withdrawFee;
-            this.withdrawLimit = withdrawLimit;
-            this.interest = interest;
-        }
-
-        public enum Accounts
-        {
-            ChecingAccount,
-            SavingAccount
-        }
-
+        public AccountType accountType;
 
 
         public double Amount 
@@ -55,20 +44,43 @@
         }
 
 
-        
+        public Account(double amount, double balance, double withdrawFee, double withdrawLimit, double interest, AccountType accountType)
+        {
+            this.amount = amount;
+            this.balance = balance;
+            this.withdrawFee = withdrawFee;
+            this.withdrawLimit = withdrawLimit;
+            this.interest = interest;
+            this.accountType = AccountType.SavingAccount;
+        }
+
+        public Account(double amount, double balance, AccountType accountType)
+        {
+            this.amount = amount;
+            this.balance = balance;
+            this.accountType = AccountType.ChecingAccount;
+        }
+
 
         public bool Deposit(double amount)
         {
             //throw new System.NotImplementedException();
 
-            bool isDepositSuccessful=true;
+            bool isDepositl=true;
 
-            return isDepositSuccessful;
+            balance += amount;
+            return isDepositl;
         }
 
         public bool Withdraw(double amount)
         {
-            throw new System.NotImplementedException();
+            //throw new System.NotImplementedException();
+            bool isWithdraw = true;
+
+            balance -= amount;
+
+            return isWithdraw;
+
         }
     }
 }
