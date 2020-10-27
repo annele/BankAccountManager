@@ -2,3 +2,12 @@ C:\Users\annak\source\repos\BankAccountManager\BankAccountManager\obj\Debug\netc
 C:\Users\annak\source\repos\BankAccountManager\BankAccountManager\obj\Debug\netcoreapp3.1\BankAccountManager.AssemblyInfoInputs.cache
 C:\Users\annak\source\repos\BankAccountManager\BankAccountManager\obj\Debug\netcoreapp3.1\BankAccountManager.AssemblyInfo.cs
 C:\Users\annak\source\repos\BankAccountManager\BankAccountManager\obj\Debug\netcoreapp3.1\BankAccountManager.csproj.CoreCompileInputs.cache
+C:\Users\annak\source\repos\BankAccountManager\BankAccountManager\bin\Debug\netcoreapp3.1\BankAccountManager.exe
+C:\Users\annak\source\repos\BankAccountManager\BankAccountManager\bin\Debug\netcoreapp3.1\BankAccountManager.deps.json
+C:\Users\annak\source\repos\BankAccountManager\BankAccountManager\bin\Debug\netcoreapp3.1\BankAccountManager.runtimeconfig.json
+C:\Users\annak\source\repos\BankAccountManager\BankAccountManager\bin\Debug\netcoreapp3.1\BankAccountManager.runtimeconfig.dev.json
+C:\Users\annak\source\repos\BankAccountManager\BankAccountManager\bin\Debug\netcoreapp3.1\BankAccountManager.dll
+C:\Users\annak\source\repos\BankAccountManager\BankAccountManager\bin\Debug\netcoreapp3.1\BankAccountManager.pdb
+C:\Users\annak\source\repos\BankAccountManager\BankAccountManager\obj\Debug\netcoreapp3.1\BankAccountManager.dll
+C:\Users\annak\source\repos\BankAccountManager\BankAccountManager\obj\Debug\netcoreapp3.1\BankAccountManager.pdb
+C:\Users\annak\source\repos\BankAccountManager\BankAccountManager\obj\Debug\netcoreapp3.1\BankAccountManager.genruntimeconfig.cache

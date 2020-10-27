@@ -5,12 +5,12 @@ namespace BankAccountManager
 {
 	public interface IBankAccount
 	{
-            public double Amount{ get; set; }
+        public double Balance{ get;  }
  
-			public bool Withdraw(double amount);
-			public bool Deposit(double amount);
+		public bool Withdraw(double amount);
+		public bool Deposit(double amount);
 
-		
+			
 
        
     }
