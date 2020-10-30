@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace BankAccountManager
 {
-    class Program
+    class Program: BusinessLogic
     {
 
 
@@ -11,63 +11,13 @@ namespace BankAccountManager
         static void Main(string[] args)
         {
 
-            
-            //Console.WriteLine("Hello World!");
-
-            
-
-
-
-
-            // foreach (Account a in fredsAccounts)
-            // {
-            //    Console.WriteLine(checking);
-            //  }
 
         }
 
+        
 
-        public Dictionary<String, List<Account>> UserAccounts()
-        {
-            List<Account> AccountList = new List<Account>();
+      
 
-            var dict = new Dictionary<String, List<Account>>();
-
-            var fredID = "1232";
-            var checking1232 = new Account(Account.AccountType.CheckingAccount, 5);
-            var saving1232 = new Account(Account.AccountType.SavingAccount, 0);
-            var fredsAccList = new List<Account>();
-
-            fredsAccList.Add(checking1232);
-            fredsAccList.Add(saving1232);
-
-            var theresaID = "1111";
-            var checking1111 = new Account(Account.AccountType.CheckingAccount, 5);
-            var saving1111 = new Account(Account.AccountType.SavingAccount, 0);
-            var theresaAccList = new List<Account>();
-
-            theresaAccList.Add(checking1111);
-            theresaAccList.Add(saving1111);
-
-            var markID = "1112";
-            var checking1112 = new Account(Account.AccountType.CheckingAccount, 5);
-            var saving1112 = new Account(Account.AccountType.SavingAccount, 0);
-            var markAccList = new List<Account>();
-
-            markAccList.Add(checking1112);
-            markAccList.Add(saving1112);
-
-
-            dict.Add(fredID, fredsAccList);
-            dict.Add(theresaID, theresaAccList);
-            dict.Add(markID, markAccList);
-
-            var fredsAccounts = dict["1232"];
-            var theesaAccounts = dict["1111"];
-            var markAccounts = dict["1112"];
-
-            return dict;
-        }
 
         /// <summary>
         /// Displays Balance to console
@@ -78,35 +28,26 @@ namespace BankAccountManager
             Console.WriteLine($"Your Blance is {account.Balance } EUR");
         }
 
-        public void MakeTransfer(IBankAccount account)
-        {
-            
-        }
+
+       
+      
 
         /// <summary>
         /// Validation of user id- when valid the list of accounts is displayed
         /// </summary>
         /// <returns></returns>
 
-        public bool InputUserID()
+        public void InputUserID()
         {
-            bool isUserIdExist = true;
-
+          
             Console.WriteLine("Please enter your userID");
             string userID = Console.ReadLine();
-            List<Account> userAccounts = new List<Account>();
-
-            if(UserAccounts().TryGetValue(userID, out userAccounts))        
+            if (IsIDExists(userID))
             {
-                Console.WriteLine(userAccounts.ToString());               
-                isUserIdExist = true;
-
-            } else
-            {
-                Console.WriteLine("User doesn't exist. Please enter correct user id");
-                isUserIdExist = false;
-            }
-            return isUserIdExist;
+                Console.WriteLine();
+            } 
+       
+           
         }
 
 
@@ -122,10 +63,33 @@ namespace BankAccountManager
             return chosenAccount;
         }
 
-        
+        /// <summary>
+        /// The user chooses the action to perform on the account and inputs the amount of money for the desired operation. The user input is validated
+        /// </summary>
+
         public void AccountAction()
         {
-            Console.WriteLine();
+            Console.WriteLine("Please choose the type of transaction: withdraw or deposit.");
+            string userAction = Console.ReadLine();
+
+            Console.WriteLine("Enter the desired amount of money to " + userAction);
+            int amount = Convert.ToInt32(Console.ReadLine());
+
+            if(userAction == "deposit" && amount >= 10000)
+            {
+                Console.WriteLine("Please address to your bank manager to perform this operation");
+
+            } else if(userAction == "deposit" && amount < 10000) {
+                Console.WriteLine("You have successfully amde the transaction");
+
+            } else if (userAction == "withdraw")
+            {
+                Console.WriteLine("");
+            } else
+            {
+                Console.WriteLine("YOu choice is incorrect, please choose valid account operation");
+            }
+
         }
 
      
