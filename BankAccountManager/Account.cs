@@ -113,7 +113,7 @@
             _withdrawFee = fees;
         }
 
-        public Account( double balance, double withdrawFee, double withdrawLimit, double interest, AccountType accountType)
+       /* public Account( double balance, double withdrawFee, double withdrawLimit, double interest, AccountType accountType)
         {
             
             this._balance = balance;
@@ -128,7 +128,7 @@
             
             this._balance = balance;
             this._accountT = AccountType.CheckingAccount;
-        }
+        } */
 
         /// <summary>
         /// implements deposit action

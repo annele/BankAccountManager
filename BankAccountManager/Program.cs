@@ -27,7 +27,7 @@ namespace BankAccountManager
         }
 
 
-        public Dictionary<String, List<Account>> usersAccounts()
+        public Dictionary<String, List<Account>> UserAccounts()
         {
             List<Account> AccountList = new List<Account>();
 
@@ -83,16 +83,49 @@ namespace BankAccountManager
             
         }
 
-        public void InputUserID()
+        /// <summary>
+        /// Validation of user id- when valid the list of accounts is displayed
+        /// </summary>
+        /// <returns></returns>
+
+        public bool InputUserID()
         {
-            
+            bool isUserIdExist = true;
+
             Console.WriteLine("Please enter your userID");
             string userID = Console.ReadLine();
+            List<Account> userAccounts = new List<Account>();
 
-           if( usersAccounts().ContainsKey(userID))
+            if(UserAccounts().TryGetValue(userID, out userAccounts))        
             {
-                Console.WriteLine();
+                Console.WriteLine(userAccounts.ToString());               
+                isUserIdExist = true;
+
+            } else
+            {
+                Console.WriteLine("User doesn't exist. Please enter correct user id");
+                isUserIdExist = false;
             }
+            return isUserIdExist;
+        }
+
+
+        /// <summary>
+        /// User chooses the acount for further actions
+        /// </summary>
+        /// <returns>the account for further actions</returns>
+
+        public String SelectAccount()
+        {
+            Console.WriteLine("Please select the account");
+            string chosenAccount = Console.ReadLine();
+            return chosenAccount;
+        }
+
+        
+        public void AccountAction()
+        {
+            Console.WriteLine();
         }
 
      
