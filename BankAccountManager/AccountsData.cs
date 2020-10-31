@@ -4,12 +4,10 @@ using System.Text;
 
 namespace BankAccountManager
 {
-    class AccountsData
-
-
+    public  class AccountsData
     {
 
-        public Dictionary<String, List<Account>> UserAccounts()
+          public Dictionary<String, List<Account>> UserAccounts()
         {
             List<Account> AccountList = new List<Account>();
 

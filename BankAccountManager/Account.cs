@@ -17,7 +17,7 @@
     //    }
     //}
 
-    class Account : IBankAccount
+   public class Account : IBankAccount
     {
 
         public enum AccountType

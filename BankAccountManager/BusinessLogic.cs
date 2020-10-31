@@ -5,25 +5,29 @@ using System.Collections.Generic;
 
 namespace BankAccountManager
 {
-    class BusinessLogic : AccountsData
+    public static class BusinessLogic 
+
     {
+        public static AccountsData Data;
+        
+
         /// <summary>
         /// checks if user id exists
         /// </summary>
         /// <param name="userID"></param>
         /// <returns></returns>
         
-        public bool IsIDExists(string userID)
+        public static bool IsIDExists(string userID)
         {
             bool isIDExist;
 
-            if (UserAccounts().ContainsKey(userID))
+            if (Data.UserAccounts().ContainsKey(userID))
             {
                 isIDExist = true;
             }
             else
                 isIDExist = false;
-
+          
             return isIDExist;
         }
 
@@ -32,11 +36,11 @@ namespace BankAccountManager
         /// </summary>
         /// <param name="userID"></param>
         /// <returns></returns>
-        public List<Account> GetAccountsForID(string userID)
+        public static List<Account> GetAccountsForID(string userID)
         {
             List<Account> accountsForID = new List<Account>();
 
-            UserAccounts().TryGetValue(userID, out accountsForID);
+            Data.UserAccounts().TryGetValue(userID, out accountsForID);
             return accountsForID;
         }
 
@@ -44,7 +48,7 @@ namespace BankAccountManager
         /// 
         /// </summary>
         /// <param name="account"></param>
-        public void MakeTransfer(IBankAccount account)
+        public static  void MakeTransfer(IBankAccount account)
         {
 
 

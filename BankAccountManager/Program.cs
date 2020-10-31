@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace BankAccountManager
 {
-    class Program: BusinessLogic
+   public class Program
     {
 
 
@@ -11,7 +11,7 @@ namespace BankAccountManager
         static void Main(string[] args)
         {
 
-
+           
         }
 
         
@@ -42,7 +42,7 @@ namespace BankAccountManager
           
             Console.WriteLine("Please enter your userID");
             string userID = Console.ReadLine();
-            if (IsIDExists(userID))
+            if (BusinessLogic.IsIDExists(userID))
             {
                 Console.WriteLine();
             } 
@@ -61,6 +61,7 @@ namespace BankAccountManager
             Console.WriteLine("Please select the account");
             string chosenAccount = Console.ReadLine();
             return chosenAccount;
+            
         }
 
         /// <summary>
