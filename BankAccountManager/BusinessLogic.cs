@@ -1,6 +1,5 @@
 ﻿
-
-
+using System;
 using System.Collections.Generic;
 
 namespace BankAccountManager
@@ -9,7 +8,22 @@ namespace BankAccountManager
 
     {
         public static AccountsData Data;
+
         
+
+       public  enum Errors
+        {
+            UserIDNotFound,
+            NotEnoughBalance,
+            MaxTransactionLimitExceeded,
+
+        }
+
+        public enum TransferType
+        {
+            deposit,
+            withdraw
+        }
 
         /// <summary>
         /// checks if user id exists
@@ -44,15 +58,29 @@ namespace BankAccountManager
             return accountsForID;
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="account"></param>
-        public static  void MakeTransfer(IBankAccount account)
+
+        public static void MakeTransfer(IBankAccount account, TransferType transferType, double amount)
         {
 
 
+
+            if (account.Balance > amount && transferType == TransferType.withdraw)
+            {
+                Console.WriteLine(Errors.NotEnoughBalance);
+
+            }
+            else if (amount > new Account().MaxTransactionLimit && transferType == TransferType.deposit)
+            {
+                Console.WriteLine(Errors.MaxTransactionLimitExceeded);
+
+            }else 
+            {
+                Console.WriteLine("Transfer is successfull");
+            }
+
+
         }
+
 
 
     }

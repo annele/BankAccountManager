@@ -107,28 +107,17 @@
 
         }
 
-        public Account(AccountType accountType, double fees)
+        public Account(AccountType accountType, double fees, double balance =0, double interest = 0, double limit=10000)
         {
             _accountT = accountType;
             _withdrawFee = fees;
+            _balance = balance;
+            _interest = interest;
+            _maxTransactionLimit = limit;
+
         }
 
-       /* public Account( double balance, double withdrawFee, double withdrawLimit, double interest, AccountType accountType)
-        {
-            
-            this._balance = balance;
-            this._withdrawFee = withdrawFee;
-            this._withdrawLimit = withdrawLimit;
-            this._interest = interest;
-            this._accountT = AccountType.SavingAccount;
-        }
-
-        public Account(double amount, double balance, AccountType accountType)
-        {
-            
-            this._balance = balance;
-            this._accountT = AccountType.CheckingAccount;
-        } */
+   
 
         /// <summary>
         /// implements deposit action

@@ -14,10 +14,7 @@ namespace BankAccountManager
            
         }
 
-        
-
-      
-
+       
 
         /// <summary>
         /// Displays Balance to console
@@ -42,14 +39,22 @@ namespace BankAccountManager
           
             Console.WriteLine("Please enter your userID");
             string userID = Console.ReadLine();
+
             if (BusinessLogic.IsIDExists(userID))
             {
-                Console.WriteLine();
-            } 
+                foreach (Account a in BusinessLogic.GetAccountsForID(userID)){
+                    Console.WriteLine("Welcome! your accounts are: " + a);
+                }
+            }  else
+
+            {
+                Console.WriteLine("This user id doens't exist");
+            }
        
            
         }
 
+       
 
         /// <summary>
         /// User chooses the acount for further actions
@@ -58,18 +63,21 @@ namespace BankAccountManager
 
         public String SelectAccount()
         {
+              
             Console.WriteLine("Please select the account");
             string chosenAccount = Console.ReadLine();
             return chosenAccount;
             
         }
 
-        /// <summary>
-        /// The user chooses the action to perform on the account and inputs the amount of money for the desired operation. The user input is validated
-        /// </summary>
 
-        public void AccountAction()
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="account"></param>
+        public static void UserAction()
         {
+           
             Console.WriteLine("Please choose the type of transaction: withdraw or deposit.");
             string userAction = Console.ReadLine();
 
