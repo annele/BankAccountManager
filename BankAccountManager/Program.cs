@@ -34,7 +34,7 @@ namespace BankAccountManager
         /// </summary>
         /// <returns></returns>
 
-        public void InputUserID()
+        public void LoginWithUserID()
         {
           
             Console.WriteLine("Please enter your userID");

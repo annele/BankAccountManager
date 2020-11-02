@@ -11,7 +11,7 @@ namespace BankAccountManager
 
         
 
-       public  enum Errors
+       public enum Errors
         {
             UserIDNotFound,
             NotEnoughBalance,
@@ -59,26 +59,22 @@ namespace BankAccountManager
         }
 
 
-        public static void MakeTransfer(IBankAccount account, TransferType transferType, double amount)
+        public static Errors  MakeTransfer(IBankAccount account, TransferType transferType, double amount)
         {
-
-
+           
 
             if (account.Balance > amount && transferType == TransferType.withdraw)
             {
-                Console.WriteLine(Errors.NotEnoughBalance);
+                return Errors.NotEnoughBalance;
 
             }
-            else if (amount > new Account().MaxTransactionLimit && transferType == TransferType.deposit)
+            else if (amount > account.MaxTransactionLimit && transferType == TransferType.deposit)
             {
-                Console.WriteLine(Errors.MaxTransactionLimitExceeded);
+               return Errors.MaxTransactionLimitExceeded;
 
-            }else 
-            {
-                Console.WriteLine("Transfer is successfull");
             }
 
-
+            return new Errors();
         }
 
 
