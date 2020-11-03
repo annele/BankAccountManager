@@ -1,20 +1,23 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Runtime.InteropServices.WindowsRuntime;
 
 namespace BankAccountManager
 {
    public class Program
     {
 
+     
 
-        
         static void Main(string[] args)
         {
+            LoginWithUserID();
+         //  SelectAccount();
+           // ChooseAction();
+           // CurrentUserAccounts();
 
-           
         }
 
-       
 
         /// <summary>
         /// Displays Balance to console
@@ -34,13 +37,13 @@ namespace BankAccountManager
         /// </summary>
         /// <returns></returns>
 
-        public void LoginWithUserID()
+        public static void LoginWithUserID()
         {
           
             Console.WriteLine("Please enter your userID");
             string userID = Console.ReadLine();
 
-            if (BusinessLogic.IsIDExists(userID))
+            if (BusinessLogic.LoginUser(userID))
             {
                 foreach (Account a in BusinessLogic.GetAccountsForID(userID)){
                     Console.WriteLine("Welcome! your accounts are: " + a);
@@ -48,60 +51,113 @@ namespace BankAccountManager
             }  else
 
             {
-                Console.WriteLine("This user id doens't exist");
+                Console.WriteLine("This user id doesn't exist");
             }
        
            
         }
+         /*  public List<Account> CurrentUserAccounts(string currentUID)
+            {
+                 List<Account> currentUserAccounts = BusinessLogic.accountsForID;
+                return currentUserAccounts;
+             } */
 
-       
+        public static void  CurrentUserAccounts(string currentUID)
+        {
+            List<Account> currentUserAccounts = BusinessLogic.accountsForID;
+            foreach (Account a in currentUserAccounts)
+            {
+                Console.WriteLine("Welcome! your accounts are: " + a);
+            }
+        }
 
         /// <summary>
         /// User chooses the acount for further actions
         /// </summary>
         /// <returns>the account for further actions</returns>
 
-        public String SelectAccount()
+        public static String SelectAccount()
         {
-              
-            Console.WriteLine("Please select the account");
+            string checkingAccount = Account.AccountType.CheckingAccount.ToString();
+            string savingAccount = Account.AccountType.SavingAccount.ToString();
+
+            Console.WriteLine("Please select the account: ");
             string chosenAccount = Console.ReadLine();
+            // if (chosenAccount !== accountsForID )
             return chosenAccount;
             
         }
 
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="account"></param>
-        public static void UserAction()
+
+
+
+        public static void MakeSomeTransfer()
         {
-           
-            Console.WriteLine("Please choose the type of transaction: withdraw or deposit.");
+            
+            string withdraw = BusinessLogic.TransferType.withdraw.ToString();
+            string deposit = BusinessLogic.TransferType.deposit.ToString();
+
+            Console.WriteLine("Please choose the type of transaction: {0} , {1}", withdraw, deposit );
             string userAction = Console.ReadLine();
 
-            Console.WriteLine("Enter the desired amount of money to " + userAction);
-            int amount = Convert.ToInt32(Console.ReadLine());
-
-            if(userAction == "deposit" && amount >= 10000)
-            {
-                Console.WriteLine("Please address to your bank manager to perform this operation");
-
-            } else if(userAction == "deposit" && amount < 10000) {
-                Console.WriteLine("You have successfully amde the transaction");
-
-            } else if (userAction == "withdraw")
-            {
-                Console.WriteLine("");
+            Console.WriteLine("Enter the amount to " + userAction);
+             
+             if(! Double.TryParse(Console.ReadLine(), out double amount)) {
+                Console.WriteLine("Enter valid amount");
             } else
             {
-                Console.WriteLine("YOu choice is incorrect, please choose valid account operation");
+                
             }
+           
+            
+
+            if (userAction == withdraw) 
+            {
+
+            }
+            
+        }
+
+      /*  public static void PerformAction(string userAction )
+        {
+            Console.WriteLine("Enter the desired amount of money to " + userAction);
+           
+
+            //make transfer method 
+            if (userAction == "deposit" && amount >= 10000)
+            {
+                
+                Console.WriteLine("Please address to your bank manager to perform this operation");
+
+            }
+            else if (userAction == "deposit" && amount < 10000)
+            {
+                Console.WriteLine("You have successfully amde the transaction");
+
+            }
+            else if (userAction == "withdraw")
+            {
+                Console.WriteLine("");
+            }
+            else
+            {
+                Console.WriteLine("YOu choice is incorrect, please choose valid account operation");
+
+
+
+            }*/
+            
+
+         
+
+
+           
+             
 
         }
 
-     
+
     }
 
-}
+

@@ -1,21 +1,5 @@
 ﻿namespace BankAccountManager
 {
-    //class BitCoinAccount : IBankAccount
-    //{
-    //    public string BTCAdress;
-
-    //    public double Balance { get => throw new System.NotImplementedException(); set => throw new System.NotImplementedException(); }
-
-    //    public bool Deposit(double balance)
-    //    {
-    //        throw new System.NotImplementedException();
-    //    }
-
-    //    public bool Withdraw(double balance)
-    //    {
-    //        throw new System.NotImplementedException();
-    //    }
-    //}
 
    public class Account : IBankAccount
     {
