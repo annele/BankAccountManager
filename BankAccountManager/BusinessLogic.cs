@@ -61,6 +61,7 @@ namespace BankAccountManager
 
         public static bool Logout (string userID)
         {
+            
             return CurrentUID == null;
         }
 
@@ -69,22 +70,17 @@ namespace BankAccountManager
         /// </summary>
         /// <param name="CurrentUID"></param>
         /// <returns></returns>
-        public static List<Account> CurrentUserAccounts(string CurrentUID)
+        public static String CurrentUserAccounts(string CurrentUID)
         {
             List<Account> currentUserAccounts = new List<Account>();
 
             AccountsData.UserAccounts().TryGetValue(CurrentUID, out currentUserAccounts);
-            return currentUserAccounts;
+
+            string userAccounts = string.Join(",", currentUserAccounts);
+            return userAccounts;
         }
 
-
-    /*   public static bool UserSelectsAccount(List<Account> accountsForID)
-        {
-            foreach (Account a in accountsForID)
-            {
-
-            }
-        }*/
+     
 
         /// <summary>
         /// 
@@ -97,7 +93,7 @@ namespace BankAccountManager
         {
            
 
-            if (  amount > account.Balance && transferType == TransferType.withdraw)
+            if (  amount > account.Balance && transferType == TransferType.withdraw )
             {
                 return TransferResult.NotEnoughBalance;
 
@@ -111,7 +107,7 @@ namespace BankAccountManager
             return  TransferResult.TransferOK;
         }
 
-
+        
 
     }
 }

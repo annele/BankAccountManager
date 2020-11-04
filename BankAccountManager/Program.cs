@@ -17,6 +17,8 @@ namespace BankAccountManager
          // ChooseAction();
          // CurrentUserAccounts();
 
+            
+
         }
 
 
@@ -26,7 +28,7 @@ namespace BankAccountManager
         /// <param name="account">A bank account</param>
         public static void DisplayBalance(IBankAccount account)
         {
-            Console.WriteLine($"Your Blance is {account.Balance } EUR");
+            Console.WriteLine($"Your Balance is {account.Balance } EUR");
         }
 
 
@@ -64,17 +66,11 @@ namespace BankAccountManager
         public static void  DisplayUserAccounts()
             
         {
-            if (BusinessLogic.UserIsLoggedin ==true)
+            if (BusinessLogic.UserIsLoggedin == true)
             {
-               
-                foreach (Account a in BusinessLogic.CurrentUserAccounts(BusinessLogic.CurrentUID))
-                {
-                    Console.WriteLine("Welcome! your accounts are: " + a);
-                }
-            } else
-            {
-                Console.WriteLine("User isn't logged in");
+                Console.WriteLine("Welcome! your accounts are: " + BusinessLogic.CurrentUserAccounts(BusinessLogic.CurrentUID));
             }
+              
 
         }
 
@@ -83,32 +79,48 @@ namespace BankAccountManager
         /// </summary>
         /// <returns>the account for further actions</returns>
 
-        public static String SelectAccount()
+        public static void  SelectAccount()
         {
-            string checkingAccount = Account.AccountType.CheckingAccount.ToString();
-            string savingAccount = Account.AccountType.SavingAccount.ToString();
+            //string checkingAccount = Account.AccountType.CheckingAccount.ToString();
+           // string savingAccount = Account.AccountType.SavingAccount.ToString();
 
-            Console.WriteLine("Please select the account: ");
+            Console.WriteLine("Please select the account ");
+
             string chosenAccount = Console.ReadLine();
-            // if (chosenAccount !== accountsForID )
-            return chosenAccount;
+            if (BusinessLogic.CurrentUserAccounts(BusinessLogic.CurrentUID).Contains(chosenAccount))
+            {
+                Console.WriteLine("This account doesn't exist");
+            }
+           
             
         }
 
 
 
-
-
-        public static void MakeSomeTransfer()
+        public static String ChooseTransferType()
         {
-            
+
             string withdraw = BusinessLogic.TransferType.withdraw.ToString();
             string deposit = BusinessLogic.TransferType.deposit.ToString();
 
-            Console.WriteLine("Please choose the type of transaction: {0} , {1}", withdraw, deposit );
-            string userAction = Console.ReadLine();
+            Console.WriteLine("Please choose the type of transaction: {0}  or  {1}", withdraw, deposit);
+            string transferType = Console.ReadLine();
+            if (transferType!= withdraw || transferType != deposit)
+            {
+                Console.WriteLine("This type of transfer is incorrect");
+            } else 
+            {
+                return transferType;
+            }
 
-            Console.WriteLine("Enter the amount to " + userAction);
+            return "";
+        }
+
+        public static void EnterAmountToTransfer(string transferType)
+        {
+
+            
+            Console.WriteLine("Enter the amount to " + transferType);
              
              if(! Double.TryParse(Console.ReadLine(), out double amount)) {
                 Console.WriteLine("Enter valid amount");
@@ -118,42 +130,20 @@ namespace BankAccountManager
             }
            
             
-
-            if (userAction == withdraw) 
-            {
-
-            }
             
         }
 
-      /*  public static void PerformAction(string userAction )
+       public static void TransferMoney()
         {
-            Console.WriteLine("Enter the desired amount of money to " + userAction);
+
            
 
-            //make transfer method 
-            if (userAction == "deposit" && amount >= 10000)
-            {
-                
-                Console.WriteLine("Please address to your bank manager to perform this operation");
+         }
+
+           
+
 
             }
-            else if (userAction == "deposit" && amount < 10000)
-            {
-                Console.WriteLine("You have successfully amde the transaction");
-
-            }
-            else if (userAction == "withdraw")
-            {
-                Console.WriteLine("");
-            }
-            else
-            {
-                Console.WriteLine("YOu choice is incorrect, please choose valid account operation");
-
-
-
-            }*/
             
 
          
@@ -165,6 +155,6 @@ namespace BankAccountManager
         }
 
 
-    }
+    
 
 
