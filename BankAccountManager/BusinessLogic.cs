@@ -7,10 +7,9 @@ namespace BankAccountManager
     public static class BusinessLogic 
 
     {
-        //public static AccountsData Data = new AccountsData();
+      
         public static String CurrentUID = "";
 
-        public static List<Account> accountsForID;
 
         public static bool  UserIsLoggedin
         {
@@ -20,13 +19,7 @@ namespace BankAccountManager
             }
         }
 
-        public static List<Account> AccountsForID
-        {
-            get
-            {
-                return accountsForID;
-            }
-        }
+   
         
 
        public enum TransferResult
@@ -74,14 +67,14 @@ namespace BankAccountManager
         /// <summary>
         /// returns the list of account for the specified user id
         /// </summary>
-        /// <param name="userID"></param>
+        /// <param name="CurrentUID"></param>
         /// <returns></returns>
-        public static List<Account> GetAccountsForID(string CurrentUID)
+        public static List<Account> CurrentUserAccounts(string CurrentUID)
         {
-           // List<Account> accountsForID = new List<Account>();
+            List<Account> currentUserAccounts = new List<Account>();
 
-            AccountsData.UserAccounts().TryGetValue(CurrentUID, out accountsForID);
-            return accountsForID;
+            AccountsData.UserAccounts().TryGetValue(CurrentUID, out currentUserAccounts);
+            return currentUserAccounts;
         }
 
 

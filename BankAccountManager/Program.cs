@@ -12,9 +12,10 @@ namespace BankAccountManager
         static void Main(string[] args)
         {
             LoginWithUserID();
+            DisplayUserAccounts();
          //  SelectAccount();
-           // ChooseAction();
-           // CurrentUserAccounts();
+         // ChooseAction();
+         // CurrentUserAccounts();
 
         }
 
@@ -45,9 +46,7 @@ namespace BankAccountManager
 
             if (BusinessLogic.LoginUser(userID))
             {
-                foreach (Account a in BusinessLogic.GetAccountsForID(userID)){
-                    Console.WriteLine("Welcome! your accounts are: " + a);
-                }
+                Console.WriteLine("You are logged in. ");
             }  else
 
             {
@@ -62,13 +61,21 @@ namespace BankAccountManager
                 return currentUserAccounts;
              } */
 
-        public static void  CurrentUserAccounts(string currentUID)
+        public static void  DisplayUserAccounts()
+            
         {
-            List<Account> currentUserAccounts = BusinessLogic.accountsForID;
-            foreach (Account a in currentUserAccounts)
+            if (BusinessLogic.UserIsLoggedin ==true)
             {
-                Console.WriteLine("Welcome! your accounts are: " + a);
+               
+                foreach (Account a in BusinessLogic.CurrentUserAccounts(BusinessLogic.CurrentUID))
+                {
+                    Console.WriteLine("Welcome! your accounts are: " + a);
+                }
+            } else
+            {
+                Console.WriteLine("User isn't logged in");
             }
+
         }
 
         /// <summary>
