@@ -13,9 +13,9 @@ namespace BankAccountManager
         {
             LoginWithUserID();
             DisplayUserAccounts();
-         //  SelectAccount();
-         // ChooseAction();
-         // CurrentUserAccounts();
+            SelectAccount();
+            ChooseTransferType();
+         
 
             
 
@@ -79,7 +79,7 @@ namespace BankAccountManager
         /// </summary>
         /// <returns>the account for further actions</returns>
 
-        public static void  SelectAccount()
+        public static String  SelectAccount()
         {
             //string checkingAccount = Account.AccountType.CheckingAccount.ToString();
            // string savingAccount = Account.AccountType.SavingAccount.ToString();
@@ -91,8 +91,10 @@ namespace BankAccountManager
             {
                 Console.WriteLine("This account doesn't exist");
             }
-           
-            
+            else
+                return chosenAccount;
+
+            return chosenAccount;
         }
 
 
@@ -105,7 +107,7 @@ namespace BankAccountManager
 
             Console.WriteLine("Please choose the type of transaction: {0}  or  {1}", withdraw, deposit);
             string transferType = Console.ReadLine();
-            if (transferType!= withdraw || transferType != deposit)
+            if (transferType!= withdraw && transferType != deposit)
             {
                 Console.WriteLine("This type of transfer is incorrect");
             } else 
@@ -116,41 +118,38 @@ namespace BankAccountManager
             return "";
         }
 
-        public static void EnterAmountToTransfer(string transferType)
+        public static Double EnterAmountToTransfer()
         {
 
-            
+            string transferType = ChooseTransferType();
+
             Console.WriteLine("Enter the amount to " + transferType);
              
              if(! Double.TryParse(Console.ReadLine(), out double amount)) {
                 Console.WriteLine("Enter valid amount");
             } else
             {
-                
+                return amount;
             }
-           
-            
+
+            return amount;
             
         }
 
        public static void TransferMoney()
         {
+            string account = SelectAccount();
+            string transferType = ChooseTransferType();
+            double amount = EnterAmountToTransfer();
 
-           
 
-         }
-
+        }
+      
            
 
 
             }
-            
-
-         
-
-
-           
-             
+                 
 
         }
 

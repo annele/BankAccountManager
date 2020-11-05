@@ -75,8 +75,12 @@ namespace BankAccountManager
             List<Account> currentUserAccounts = new List<Account>();
 
             AccountsData.UserAccounts().TryGetValue(CurrentUID, out currentUserAccounts);
-
-            string userAccounts = string.Join(",", currentUserAccounts);
+            string userAccounts = "";
+            foreach (Account a in currentUserAccounts)
+            {
+                 userAccounts = a.ToString();
+            }
+           // string userAccounts = string.Join(",", currentUserAccounts);
             return userAccounts;
         }
 
