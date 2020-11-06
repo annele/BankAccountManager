@@ -79,25 +79,64 @@ namespace BankAccountManager
         /// </summary>
         /// <returns>the account for further actions</returns>
 
-        public static String  SelectAccount()
+        public static Account  SelectAccount (List<Account> userAccounts)
         {
             //string checkingAccount = Account.AccountType.CheckingAccount.ToString();
-           // string savingAccount = Account.AccountType.SavingAccount.ToString();
-
-            Console.WriteLine("Please select the account ");
-
-            string chosenAccount = Console.ReadLine();
-            if (BusinessLogic.CurrentUserAccounts(BusinessLogic.CurrentUID).Contains(chosenAccount))
+            // string savingAccount = Account.AccountType.SavingAccount.ToString();
+            Account account;
+            userAccounts = BusinessLogic.CurrentUserAccounts(BusinessLogic.CurrentUID);
+           
+            if(BusinessLogic.UserIsLoggedin == true)
             {
-                Console.WriteLine("This account doesn't exist");
-            }
-            else
-                return chosenAccount;
+                foreach (Account a in userAccounts)
+                {
+                    account = a; 
+                    Console.WriteLine(account);
 
-            return chosenAccount;
+                }
+            } else
+            {
+                Console.WriteLine("User isn't logged in");
+            }
+
+            Console.WriteLine("Please select the account to transfer");
+            string accountChoise = Console.ReadLine();
+            
+
+            return account;
         }
 
 
+        public static void Transfer (Account account, BusinessLogic.TransferType transferType, double amount)
+        {
+            string withdraw = BusinessLogic.TransferType.withdraw.ToString();
+            string deposit = BusinessLogic.TransferType.deposit.ToString();
+
+            
+
+            Console.WriteLine("Select type of transfer for the account: enter 1 to deposit, enter 2 to withdraw");
+             transferType = Console.ReadLine();
+
+            Console.WriteLine("Enter the amount of money to transfer");
+
+            if (!Double.TryParse(Console.ReadLine(), out amount))
+            {
+                Console.WriteLine("Enter valid amount");
+            }
+            else
+            {
+                amount = Convert.ToDouble(Console.ReadLine());
+
+            }
+
+            switch (transferType)
+            {
+                case BusinessLogic.TransferType.deposit:
+                    
+
+
+            }
+        }
 
         public static String ChooseTransferType()
         {

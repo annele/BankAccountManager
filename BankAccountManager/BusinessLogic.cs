@@ -70,18 +70,14 @@ namespace BankAccountManager
         /// </summary>
         /// <param name="CurrentUID"></param>
         /// <returns></returns>
-        public static String CurrentUserAccounts(string CurrentUID)
+        public static List<Account> CurrentUserAccounts(string CurrentUID)
         {
             List<Account> currentUserAccounts = new List<Account>();
 
             AccountsData.UserAccounts().TryGetValue(CurrentUID, out currentUserAccounts);
-            string userAccounts = "";
-            foreach (Account a in currentUserAccounts)
-            {
-                 userAccounts = a.ToString();
-            }
-           // string userAccounts = string.Join(",", currentUserAccounts);
-            return userAccounts;
+           
+            //string userAccounts = string.Join(",", currentUserAccounts);
+            return currentUserAccounts;
         }
 
      
@@ -96,6 +92,11 @@ namespace BankAccountManager
         public static TransferResult  MakeTransfer(IBankAccount account, TransferType transferType, double amount)
         {
            
+            switch (transferType)
+            {
+                case TransferType.deposit:
+
+            }
 
             if (  amount > account.Balance && transferType == TransferType.withdraw )
             {
@@ -106,6 +107,14 @@ namespace BankAccountManager
             {
                return TransferResult.MaxTransactionLimitExceeded;
 
+            } else if(transferType ==TransferType.deposit) 
+            {
+                account.Deposit(amount);
+                
+            } else if (transferType == TransferType.withdraw) 
+
+             {
+                account.Withdraw(amount);
             }
 
             return  TransferResult.TransferOK;
