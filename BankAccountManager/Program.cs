@@ -13,8 +13,8 @@ namespace BankAccountManager
         {
             LoginWithUserID();
             DisplayUserAccounts();
-            SelectAccount();
-            ChooseTransferType();
+          //  SelectAccount();
+           
          
 
             
@@ -83,42 +83,42 @@ namespace BankAccountManager
         {
             //string checkingAccount = Account.AccountType.CheckingAccount.ToString();
             // string savingAccount = Account.AccountType.SavingAccount.ToString();
-            Account account;
+            Account account = new Account();
             userAccounts = BusinessLogic.CurrentUserAccounts(BusinessLogic.CurrentUID);
            
             if(BusinessLogic.UserIsLoggedin == true)
             {
-                foreach (Account a in userAccounts)
-                {
-                    account = a; 
-                    Console.WriteLine(account);
 
+                for (int i = 0; i <= userAccounts.Count; i++)
+                {
+                    Console.WriteLine($"{i} {account}");
                 }
+                
             } else
             {
                 Console.WriteLine("User isn't logged in");
             }
 
-            Console.WriteLine("Please select the account to transfer");
-            string accountChoise = Console.ReadLine();
-            
+            Console.WriteLine("Please select the account to transfer: input the number according to the target account");
+            int number = Convert.ToInt32(Console.ReadLine());
 
+            account = userAccounts[number];
             return account;
         }
 
 
         public static void Transfer (Account account, BusinessLogic.TransferType transferType, double amount)
         {
-            string withdraw = BusinessLogic.TransferType.withdraw.ToString();
-            string deposit = BusinessLogic.TransferType.deposit.ToString();
+            //  string withdraw = BusinessLogic.TransferType.withdraw.ToString();
+            // string deposit = BusinessLogic.TransferType.deposit.ToString();
 
-            
 
+            account = SelectAccount(BusinessLogic.CurrentUserAccounts(BusinessLogic.CurrentUID));
             Console.WriteLine("Select type of transfer for the account: enter 1 to deposit, enter 2 to withdraw");
-             transferType = Console.ReadLine();
+           // string usersChoice = Console.ReadLine();
 
             Console.WriteLine("Enter the amount of money to transfer");
-
+           // amount = Console.ReadLine();
             if (!Double.TryParse(Console.ReadLine(), out amount))
             {
                 Console.WriteLine("Enter valid amount");
@@ -129,62 +129,25 @@ namespace BankAccountManager
 
             }
 
-            switch (transferType)
+          /*  switch (usersChoice)
             {
-                case BusinessLogic.TransferType.deposit:
-                    
+                case "1":
+                    transferType = BusinessLogic.TransferType.deposit;
+                    break;
 
+                case "2":
+                    transferType = BusinessLogic.TransferType.withdraw;
+                    break;                
+            }*/
 
-            }
-        }
-
-        public static String ChooseTransferType()
-        {
-
-            string withdraw = BusinessLogic.TransferType.withdraw.ToString();
-            string deposit = BusinessLogic.TransferType.deposit.ToString();
-
-            Console.WriteLine("Please choose the type of transaction: {0}  or  {1}", withdraw, deposit);
-            string transferType = Console.ReadLine();
-            if (transferType!= withdraw && transferType != deposit)
-            {
-                Console.WriteLine("This type of transfer is incorrect");
-            } else 
-            {
-                return transferType;
-            }
-
-            return "";
-        }
-
-        public static Double EnterAmountToTransfer()
-        {
-
-            string transferType = ChooseTransferType();
-
-            Console.WriteLine("Enter the amount to " + transferType);
-             
-             if(! Double.TryParse(Console.ReadLine(), out double amount)) {
-                Console.WriteLine("Enter valid amount");
-            } else
-            {
-                return amount;
-            }
-
-            return amount;
-            
-        }
-
-       public static void TransferMoney()
-        {
-            string account = SelectAccount();
-            string transferType = ChooseTransferType();
-            double amount = EnterAmountToTransfer();
-
-
-        }
-      
            
+
+           
+           
+          
+        }
+
+  
 
 
             }

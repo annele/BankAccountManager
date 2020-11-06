@@ -91,14 +91,39 @@ namespace BankAccountManager
         /// <returns></returns>
         public static TransferResult  MakeTransfer(IBankAccount account, TransferType transferType, double amount)
         {
-           
+
             switch (transferType)
             {
                 case TransferType.deposit:
+                    if (amount > account.MaxTransactionLimit)
+                    {
+                        return TransferResult.MaxTransactionLimitExceeded;
+                    }
+                    else
+                    {
+                        account.Deposit(amount);
+                        return TransferResult.TransferOK;
 
+                    }
+                    //break;
+
+                case TransferType.withdraw: 
+                    if(amount > account.Balance)
+                    {
+                        return TransferResult.NotEnoughBalance;
+
+                    }
+                    else
+                    {
+                        account.Withdraw(amount);
+                        return TransferResult.TransferOK;
+                    }
+                  
             }
 
-            if (  amount > account.Balance && transferType == TransferType.withdraw )
+            return TransferResult.TransferOK;
+     
+          /*  if (  amount > account.Balance && transferType == TransferType.withdraw )
             {
                 return TransferResult.NotEnoughBalance;
 
@@ -118,7 +143,7 @@ namespace BankAccountManager
             }
 
             return  TransferResult.TransferOK;
-        }
+        }*/
 
         
 
