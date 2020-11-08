@@ -32,8 +32,8 @@ namespace BankAccountManager
 
         public enum TransferType
         {
-            deposit,
-            withdraw
+            deposit = 1,
+            withdraw = 2
         }
 
         /// <summary>
@@ -105,7 +105,7 @@ namespace BankAccountManager
                         return TransferResult.TransferOK;
 
                     }
-                //break;
+                    break;
 
                 case TransferType.withdraw:
                     if (amount > account.Balance)
@@ -119,9 +119,17 @@ namespace BankAccountManager
                         return TransferResult.TransferOK;
                     }
 
+                    break;
+
+                default:
+                    return TransferResult.TransferOK;
+
+                    break;
+
+
             }
 
-            return TransferResult.TransferOK;
+            //return TransferResult.TransferOK;
 
             /*  if (  amount > account.Balance && transferType == TransferType.withdraw )
               {
