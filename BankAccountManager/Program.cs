@@ -11,8 +11,9 @@ namespace BankAccountManager
 
         static void Main(string[] args)
         {
-            LoginWithUserID();
-            DisplayUserAccounts();
+            //SelectTransferType();
+          //  LoginWithUserID();
+           // DisplayUserAccounts();
           //  SelectAccount();
            
          
@@ -57,38 +58,34 @@ namespace BankAccountManager
        
            
         }
-         /*  public List<Account> CurrentUserAccounts(string currentUID)
-            {
-                 List<Account> currentUserAccounts = BusinessLogic.accountsForID;
-                return currentUserAccounts;
-             } */
+       
 
         public static void  DisplayUserAccounts()
             
         {
             if (BusinessLogic.UserIsLoggedin == true)
             {
-                Console.WriteLine("Welcome! your accounts are: " + BusinessLogic.CurrentUserAccounts(BusinessLogic.CurrentUID));
+                Console.WriteLine("Welcome! your accounts are: " + BusinessLogic.CurrentUserAccounts());
             }
               
 
         }
 
-        /// <summary>
-        /// User chooses the acount for further actions
-        /// </summary>
-        /// <returns>the account for further actions</returns>
+    /// <summary>
+    ///  User selects the account for the further transfer
+    /// </summary>
+    /// <param name="userAccounts"></param>
+    /// <returns></returns>
 
         public static Account  SelectAccount (List<Account> userAccounts)
         {
             //string checkingAccount = Account.AccountType.CheckingAccount.ToString();
             // string savingAccount = Account.AccountType.SavingAccount.ToString();
             Account account = new Account();
-            userAccounts = BusinessLogic.CurrentUserAccounts(BusinessLogic.CurrentUID);
+            userAccounts = BusinessLogic.CurrentUserAccounts();
            
             if(BusinessLogic.UserIsLoggedin == true)
             {
-
                 for (int i = 0; i <= userAccounts.Count; i++)
                 {
                     Console.WriteLine($"{i} {account}");
@@ -100,11 +97,30 @@ namespace BankAccountManager
             }
 
             Console.WriteLine("Please select the account to transfer: input the number according to the target account");
-            int number = Convert.ToInt32(Console.ReadLine());
-
-            account = userAccounts[number];
+            int accountNumber = 0;
+            if(!Int32.TryParse(Console.ReadLine(), out accountNumber))
+            {
+                account = userAccounts[accountNumber];
+            }          
             return account;
         }
+
+        /*   public static  void SelectTransferType ()
+           {
+               Console.WriteLine("Select type of transfer for the account:  input the number according to the target transfer");
+               //int number = Convert.ToInt32(Console.ReadLine());
+               int transferNumber = 0;
+               if (int.TryParse(Console.ReadLine(), out transferNumber))
+               {
+                   if(Enum.IsDefined(typeof(BusinessLogic.TransferType), transferNumber))
+                   {
+                      BusinessLogic.TransferType transferType = (BusinessLogic.TransferType)transferNumber;
+                       Console.WriteLine(transferType);
+                   }
+
+
+               }
+           }*/
 
 
         public static void Transfer (Account account, BusinessLogic.TransferType transferType, double amount)
@@ -113,10 +129,21 @@ namespace BankAccountManager
             // string deposit = BusinessLogic.TransferType.deposit.ToString();
 
 
-            account = SelectAccount(BusinessLogic.CurrentUserAccounts(BusinessLogic.CurrentUID));
-            Console.WriteLine("Select type of transfer for the account: enter 1 to deposit, enter 2 to withdraw");
-           // string usersChoice = Console.ReadLine();
+            account = SelectAccount(BusinessLogic.CurrentUserAccounts());
 
+            //choosing the type of transfer
+            Console.WriteLine("Select type of transfer for the account: ");
+            int transferNumber = 0;
+            if (int.TryParse(Console.ReadLine(), out transferNumber))
+            {
+                if (Enum.IsDefined(typeof(BusinessLogic.TransferType), transferNumber))
+                {
+                     transferType = (BusinessLogic.TransferType)transferNumber;
+                    //Console.WriteLine(transferType);
+                }
+
+            //entering the amount of money to transfer
+          
             Console.WriteLine("Enter the amount of money to transfer");
            // amount = Console.ReadLine();
             if (!Double.TryParse(Console.ReadLine(), out amount))
@@ -129,16 +156,8 @@ namespace BankAccountManager
 
             }
 
-          /*  switch (usersChoice)
-            {
-                case "1":
-                    transferType = BusinessLogic.TransferType.deposit;
-                    break;
 
-                case "2":
-                    transferType = BusinessLogic.TransferType.withdraw;
-                    break;                
-            }*/
+                BusinessLogic.MakeTransfer(account, transferType, amount);
 
            
 

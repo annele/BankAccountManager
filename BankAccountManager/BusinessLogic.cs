@@ -4,14 +4,14 @@ using System.Collections.Generic;
 
 namespace BankAccountManager
 {
-    public static class BusinessLogic 
+    public static class BusinessLogic
 
     {
-      
+
         public static String CurrentUID = "";
 
 
-        public static bool  UserIsLoggedin
+        public static bool UserIsLoggedin
         {
             get
             {
@@ -19,10 +19,10 @@ namespace BankAccountManager
             }
         }
 
-   
-        
 
-       public enum TransferResult
+
+
+        public enum TransferResult
         {
             TransferOK,
             NotEnoughBalance,
@@ -41,7 +41,7 @@ namespace BankAccountManager
         /// </summary>
         /// <param name="userID"></param>
         /// <returns></returns>
-        
+
         public static bool LoginUser(string userID)
         {
             bool isIDExist;
@@ -50,18 +50,18 @@ namespace BankAccountManager
             {
                 isIDExist = true;
                 CurrentUID = userID;
-                
+
             }
             else
                 isIDExist = false;
-          
+
             return isIDExist;
         }
 
 
-        public static bool Logout (string userID)
+        public static bool Logout(string userID)
         {
-            
+
             return CurrentUID == null;
         }
 
@@ -70,17 +70,17 @@ namespace BankAccountManager
         /// </summary>
         /// <param name="CurrentUID"></param>
         /// <returns></returns>
-        public static List<Account> CurrentUserAccounts(string CurrentUID)
+        public static List<Account> CurrentUserAccounts()
         {
             List<Account> currentUserAccounts = new List<Account>();
 
             AccountsData.UserAccounts().TryGetValue(CurrentUID, out currentUserAccounts);
-           
+
             //string userAccounts = string.Join(",", currentUserAccounts);
             return currentUserAccounts;
         }
 
-     
+
 
         /// <summary>
         /// 
@@ -89,7 +89,7 @@ namespace BankAccountManager
         /// <param name="transferType"></param>
         /// <param name="amount"></param>
         /// <returns></returns>
-        public static TransferResult  MakeTransfer(IBankAccount account, TransferType transferType, double amount)
+        public static TransferResult MakeTransfer(IBankAccount account, TransferType transferType, double amount)
         {
 
             switch (transferType)
@@ -105,10 +105,10 @@ namespace BankAccountManager
                         return TransferResult.TransferOK;
 
                     }
-                    //break;
+                //break;
 
-                case TransferType.withdraw: 
-                    if(amount > account.Balance)
+                case TransferType.withdraw:
+                    if (amount > account.Balance)
                     {
                         return TransferResult.NotEnoughBalance;
 
@@ -118,34 +118,35 @@ namespace BankAccountManager
                         account.Withdraw(amount);
                         return TransferResult.TransferOK;
                     }
-                  
+
             }
 
             return TransferResult.TransferOK;
-     
-          /*  if (  amount > account.Balance && transferType == TransferType.withdraw )
-            {
-                return TransferResult.NotEnoughBalance;
 
-            }
-            else if (amount > account.MaxTransactionLimit && transferType == TransferType.deposit)
-            {
-               return TransferResult.MaxTransactionLimitExceeded;
+            /*  if (  amount > account.Balance && transferType == TransferType.withdraw )
+              {
+                  return TransferResult.NotEnoughBalance;
 
-            } else if(transferType ==TransferType.deposit) 
-            {
-                account.Deposit(amount);
-                
-            } else if (transferType == TransferType.withdraw) 
+              }
+              else if (amount > account.MaxTransactionLimit && transferType == TransferType.deposit)
+              {
+                 return TransferResult.MaxTransactionLimitExceeded;
 
-             {
-                account.Withdraw(amount);
-            }
+              } else if(transferType ==TransferType.deposit) 
+              {
+                  account.Deposit(amount);
 
-            return  TransferResult.TransferOK;
-        }*/
+              } else if (transferType == TransferType.withdraw) 
 
-        
+               {
+                  account.Withdraw(amount);
+              }
 
+              return  TransferResult.TransferOK;
+          }*/
+
+
+
+        }
     }
 }
