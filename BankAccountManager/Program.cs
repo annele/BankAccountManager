@@ -7,23 +7,21 @@ namespace BankAccountManager
     public class Program
     {
 
-
-
         static void Main(string[] args)
         {
-            //SelectTransferType();
-            //  LoginWithUserID();
-            // DisplayUserAccounts();
-            //  SelectAccount();
+
             Account account;
+            BusinessLogic.TransferType transferType;
+            Double amount;
 
             LoginWithUserID();
             account = SelectAccount();
             DisplayBalance(account);
-            SelectTransferType();
-            //Transfer(account,);
-        }
+            transferType = SelectTransferType();
+            amount = EnterAmount();
+            Transfer(account, transferType, amount);
 
+        }
 
         /// <summary>
         /// Displays Balance to console
@@ -33,9 +31,6 @@ namespace BankAccountManager
         {
             Console.WriteLine($"Your Balance is {account.Balance } EUR");
         }
-
-
-
 
 
         /// <summary>
@@ -108,15 +103,15 @@ namespace BankAccountManager
                 Console.WriteLine("Please enter the valid number");
             }
 
-            //while (!(accountNumber < userAccounts.Count))
-            //{
-            //    Console.WriteLine("Please enter the valid number");
-            //}
-
             account = userAccounts[accountNumber];
 
             return account;
         }
+
+        /// <summary>
+        /// account selection for the transfer
+        /// </summary>
+        /// <returns></returns>
 
         public static BusinessLogic.TransferType SelectTransferType()
         {
@@ -137,89 +132,52 @@ namespace BankAccountManager
             return BusinessLogic.TransferType.deposit;
         }
 
-
-        public static void Transfer(Account account, BusinessLogic.TransferType transferType, double amount)
+        /// <summary>
+        /// user enters the amount to transfer, the amount is varified
+        /// </summary>
+        /// <returns></returns>
+        public static Double EnterAmount()
         {
-            //  string withdraw = BusinessLogic.TransferType.withdraw.ToString();
-            // string deposit = BusinessLogic.TransferType.deposit.ToString();
-
-
-            account = SelectAccount();
-
-            //choosing the type of transfer
-            Console.WriteLine("Select type of transfer for the account: enter 1 to deposit, 2 to withdraw");
-            int transferNumber = 0;
-            if (int.TryParse(Console.ReadLine(), out transferNumber))
-            {
-                if (Enum.IsDefined(typeof(BusinessLogic.TransferType), transferNumber))
-                {
-                    transferType = (BusinessLogic.TransferType)transferNumber;
-                    //Console.WriteLine(transferType);
-                }
-            }
-
-            //entering the amount of money to transfer
-
+            double amount;
             Console.WriteLine("Enter the amount of money to transfer");
-
-            if (!Double.TryParse(Console.ReadLine(), out amount))
+            
+            while(!Double.TryParse(Console.ReadLine(), out  amount)) 
             {
                 Console.WriteLine("Enter valid amount");
-            }
-            else
-            {
-                amount = Convert.ToDouble(Console.ReadLine());
 
             }
 
-
-            switch (transferNumber)
-            {
-                case 1:
-                    if (amount >= 10000)
-                    {
-                        BusinessLogic.MakeTransfer(account, transferType, amount);
-                        Console.WriteLine((BusinessLogic.TransferResult.MaxTransactionLimitExceeded).ToString());
-                    }
-                    else
-                    {
-                        BusinessLogic.MakeTransfer(account, transferType, amount);
-                        Console.WriteLine((BusinessLogic.TransferResult.TransferOK).ToString());
-
-                    }
-                    break;
-
-                case 2:
-
-                    if (amount > account.Balance)
-                    {
-                        BusinessLogic.MakeTransfer(account, transferType, amount);
-                        Console.WriteLine((BusinessLogic.TransferResult.NotEnoughBalance).ToString());
-
-                    }
-                    else
-                    {
-                        BusinessLogic.MakeTransfer(account, transferType, amount);
-                        Console.WriteLine((BusinessLogic.TransferResult.TransferOK).ToString());
-                    }
-
-                    break;
-                default:
-
-                    Console.WriteLine((BusinessLogic.TransferResult.TransferOK).ToString());
-                    break;
-
-            }
-
-
-
-
-
-
-
-
+            return amount;
         }
 
+        /// <summary>
+        /// making transfer to users's account 
+        /// </summary>
+        /// <param name="account"></param>
+        /// <param name="transferType"></param>
+        /// <param name="amount"></param>
+        public static void Transfer(Account account, BusinessLogic.TransferType transferType, double amount)
+        {
+            BusinessLogic.TransferResult result = BusinessLogic.MakeTransfer(account, transferType, amount);
+
+            switch(result)
+            {
+                case BusinessLogic.TransferResult.MaxTransactionLimitExceeded:
+                    Console.WriteLine("The max transaction amount is exceeded, please enter the amount less then 10000");
+                    break;
+                case BusinessLogic.TransferResult.NotEnoughBalance:
+                        Console.WriteLine("There's not enough balance for the desired transfer");
+                    break;
+                case BusinessLogic.TransferResult.TransferOK:
+                    Console.WriteLine("Transfer is successfull");
+                    break;
+                default:
+                    Console.WriteLine("Transfer is successfull");
+                    break;
+            }
+           
+
+        }
 
 
 

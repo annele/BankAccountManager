@@ -8,7 +8,6 @@ namespace BankAccountManager
 
     {
 
-
         public static String CurrentUID = "";
 
 
@@ -19,7 +18,6 @@ namespace BankAccountManager
                 return CurrentUID != "";
             }
         }
-
 
 
 
@@ -125,32 +123,6 @@ namespace BankAccountManager
             }
             return TransferResult.TransferOK;
 
-
-            /* 
-
-                if (  amount > account.Balance && transferType == TransferType.withdraw )
-                {
-                    return TransferResult.NotEnoughBalance;
-
-                }
-                else if (amount > account.MaxTransactionLimit && transferType == TransferType.deposit)
-                {
-                   return TransferResult.MaxTransactionLimitExceeded;
-
-                } else if(transferType ==TransferType.deposit) 
-                {
-                    account.Deposit(amount);
-
-                } else if (transferType == TransferType.withdraw) 
-
-                 {
-                    account.Withdraw(amount);
-                }
-
-                return  TransferResult.TransferOK;
-            }
-
-               */
 
         }
     }
