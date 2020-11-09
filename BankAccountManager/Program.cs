@@ -15,11 +15,13 @@ namespace BankAccountManager
             //  LoginWithUserID();
             // DisplayUserAccounts();
             //  SelectAccount();
+            Account account;
 
-
-
-
-
+            LoginWithUserID();
+            account = SelectAccount();
+            DisplayBalance(account);
+            SelectTransferType();
+            //Transfer(account,);
         }
 
 
@@ -78,18 +80,18 @@ namespace BankAccountManager
         /// <param name="userAccounts"></param>
         /// <returns></returns>
 
-        public static Account SelectAccount(List<Account> userAccounts)
+        public static Account SelectAccount()
         {
             //string checkingAccount = Account.AccountType.CheckingAccount.ToString();
             // string savingAccount = Account.AccountType.SavingAccount.ToString();
             Account account = new Account();
-            userAccounts = BusinessLogic.CurrentUserAccounts();
+            var userAccounts = BusinessLogic.CurrentUserAccounts();
 
-            if (BusinessLogic.UserIsLoggedin == true)
+            if (BusinessLogic.UserIsLoggedin)
             {
-                for (int i = 0; i <= userAccounts.Count; i++)
+                for (int i = 0; i < userAccounts.Count; i++)
                 {
-                    Console.WriteLine($"{i} {account}");
+                    Console.WriteLine($"{i} {userAccounts[i]}");
                 }
 
             }
@@ -100,14 +102,23 @@ namespace BankAccountManager
 
             Console.WriteLine("Please select the account to transfer: input the number according to the target account");
             int accountNumber = 0;
-            if (!Int32.TryParse(Console.ReadLine(), out accountNumber))
+
+            while (!Int32.TryParse(Console.ReadLine(), out accountNumber) || accountNumber > userAccounts.Count)
             {
-                account = userAccounts[accountNumber];
+                Console.WriteLine("Please enter the valid number");
             }
+
+            //while (!(accountNumber < userAccounts.Count))
+            //{
+            //    Console.WriteLine("Please enter the valid number");
+            //}
+
+            account = userAccounts[accountNumber];
+
             return account;
         }
 
-     /*   public static void SelectTransferType()
+        public static BusinessLogic.TransferType SelectTransferType()
         {
             Console.WriteLine("Select type of transfer for the account:  input the number according to the target transfer");
             //int number = Convert.ToInt32(Console.ReadLine());
@@ -118,11 +129,13 @@ namespace BankAccountManager
                 {
                     BusinessLogic.TransferType transferType = (BusinessLogic.TransferType)transferNumber;
                     Console.WriteLine(transferType);
+                    return transferType;
+
                 }
 
-
             }
-        }*/
+            return BusinessLogic.TransferType.deposit;
+        }
 
 
         public static void Transfer(Account account, BusinessLogic.TransferType transferType, double amount)
@@ -131,11 +144,11 @@ namespace BankAccountManager
             // string deposit = BusinessLogic.TransferType.deposit.ToString();
 
 
-            account = SelectAccount(BusinessLogic.CurrentUserAccounts());
+            account = SelectAccount();
 
             //choosing the type of transfer
             Console.WriteLine("Select type of transfer for the account: enter 1 to deposit, 2 to withdraw");
-              int transferNumber = 0;
+            int transferNumber = 0;
             if (int.TryParse(Console.ReadLine(), out transferNumber))
             {
                 if (Enum.IsDefined(typeof(BusinessLogic.TransferType), transferNumber))
@@ -145,22 +158,22 @@ namespace BankAccountManager
                 }
             }
 
-                //entering the amount of money to transfer
+            //entering the amount of money to transfer
 
-                Console.WriteLine("Enter the amount of money to transfer");
-                
-                if (!Double.TryParse(Console.ReadLine(), out amount))
-                {
-                    Console.WriteLine("Enter valid amount");
-                }
-                else
-                {
-                    amount = Convert.ToDouble(Console.ReadLine());
+            Console.WriteLine("Enter the amount of money to transfer");
 
-                }
+            if (!Double.TryParse(Console.ReadLine(), out amount))
+            {
+                Console.WriteLine("Enter valid amount");
+            }
+            else
+            {
+                amount = Convert.ToDouble(Console.ReadLine());
+
+            }
 
 
-                switch (transferNumber)
+            switch (transferNumber)
             {
                 case 1:
                     if (amount >= 10000)
@@ -178,7 +191,7 @@ namespace BankAccountManager
 
                 case 2:
 
-                    if (amount >account.Balance)
+                    if (amount > account.Balance)
                     {
                         BusinessLogic.MakeTransfer(account, transferType, amount);
                         Console.WriteLine((BusinessLogic.TransferResult.NotEnoughBalance).ToString());
@@ -210,13 +223,13 @@ namespace BankAccountManager
 
 
 
-        }
-
-
     }
 
 
+}
 
-    
+
+
+
 
 

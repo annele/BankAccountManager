@@ -8,6 +8,7 @@ namespace BankAccountManager
 
     {
 
+
         public static String CurrentUID = "";
 
 
@@ -73,7 +74,6 @@ namespace BankAccountManager
         public static List<Account> CurrentUserAccounts()
         {
             List<Account> currentUserAccounts = new List<Account>();
-
             AccountsData.UserAccounts().TryGetValue(CurrentUID, out currentUserAccounts);
 
             //string userAccounts = string.Join(",", currentUserAccounts);
@@ -99,13 +99,15 @@ namespace BankAccountManager
                     {
                         return TransferResult.MaxTransactionLimitExceeded;
                     }
+
                     else
                     {
                         account.Deposit(amount);
                         return TransferResult.TransferOK;
 
                     }
-                    break;
+                    // return TransferResult.TransferOK;
+                   
 
                 case TransferType.withdraw:
                     if (amount > account.Balance)
@@ -119,41 +121,36 @@ namespace BankAccountManager
                         return TransferResult.TransferOK;
                     }
 
-                    break;
-
-                default:
-                    return TransferResult.TransferOK;
-
-                    break;
-
 
             }
-
-            //return TransferResult.TransferOK;
-
-            /*  if (  amount > account.Balance && transferType == TransferType.withdraw )
-              {
-                  return TransferResult.NotEnoughBalance;
-
-              }
-              else if (amount > account.MaxTransactionLimit && transferType == TransferType.deposit)
-              {
-                 return TransferResult.MaxTransactionLimitExceeded;
-
-              } else if(transferType ==TransferType.deposit) 
-              {
-                  account.Deposit(amount);
-
-              } else if (transferType == TransferType.withdraw) 
-
-               {
-                  account.Withdraw(amount);
-              }
-
-              return  TransferResult.TransferOK;
-          }*/
+            return TransferResult.TransferOK;
 
 
+            /* 
+
+                if (  amount > account.Balance && transferType == TransferType.withdraw )
+                {
+                    return TransferResult.NotEnoughBalance;
+
+                }
+                else if (amount > account.MaxTransactionLimit && transferType == TransferType.deposit)
+                {
+                   return TransferResult.MaxTransactionLimitExceeded;
+
+                } else if(transferType ==TransferType.deposit) 
+                {
+                    account.Deposit(amount);
+
+                } else if (transferType == TransferType.withdraw) 
+
+                 {
+                    account.Withdraw(amount);
+                }
+
+                return  TransferResult.TransferOK;
+            }
+
+               */
 
         }
     }
