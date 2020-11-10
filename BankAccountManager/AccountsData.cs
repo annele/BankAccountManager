@@ -4,10 +4,10 @@ using System.Text;
 
 namespace BankAccountManager
 {
-    public  class AccountsData
+    public class AccountsData
     {
 
-          public static Dictionary<String, List<Account>> UserAccounts()
+        public static Dictionary<String, List<Account>> UserAccounts()
         {
             List<Account> AccountList = new List<Account>();
 
@@ -35,9 +35,9 @@ namespace BankAccountManager
             var markAccList = new List<Account>();
 
             markAccList.Add(checking1112);
-           markAccList.Add(saving1112);
+            markAccList.Add(saving1112);
 
-           
+
             dict.Add(fredID, fredsAccList);
             dict.Add(theresaID, theresaAccList);
             dict.Add(markID, markAccList);
@@ -50,3 +50,5 @@ namespace BankAccountManager
         }
     }
 }
+
+

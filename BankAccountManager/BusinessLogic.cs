@@ -1,6 +1,7 @@
 ﻿
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 
 namespace BankAccountManager
 {
@@ -58,10 +59,17 @@ namespace BankAccountManager
         }
 
 
-        public static bool Logout(string userID)
+        public static bool Logout()
         {
-
-            return CurrentUID == null;
+            bool isLoggedOut;
+            if (LoginUser(CurrentUID))
+            {
+                CurrentUID = null;
+                isLoggedOut = true;
+            }
+            else
+                isLoggedOut = false;
+            return isLoggedOut;
         }
 
         /// <summary>
@@ -73,8 +81,6 @@ namespace BankAccountManager
         {
             List<Account> currentUserAccounts = new List<Account>();
             AccountsData.UserAccounts().TryGetValue(CurrentUID, out currentUserAccounts);
-
-            //string userAccounts = string.Join(",", currentUserAccounts);
             return currentUserAccounts;
         }
 
@@ -104,8 +110,7 @@ namespace BankAccountManager
                         return TransferResult.TransferOK;
 
                     }
-                    // return TransferResult.TransferOK;
-                   
+                // return TransferResult.TransferOK;
 
                 case TransferType.withdraw:
                     if (amount > account.Balance)
@@ -118,7 +123,6 @@ namespace BankAccountManager
                         account.Withdraw(amount);
                         return TransferResult.TransferOK;
                     }
-
 
             }
             return TransferResult.TransferOK;

@@ -1,7 +1,7 @@
 ﻿namespace BankAccountManager
 {
 
-   public class Account : IBankAccount
+    public class Account : IBankAccount
     {
 
         public enum AccountType
@@ -17,7 +17,7 @@
         private double _interest;
         private double _maxTransactionLimit;
         private double _accountNumber;
-        
+
 
         private AccountType _accountT;
 
@@ -25,7 +25,7 @@
 
         public AccountType AccountT
         {
-            get { return _accountT; }          
+            get { return _accountT; }
         }
 
 
@@ -41,13 +41,13 @@
                 _accountNumber = value;
             }
         }
-        
+
 
         public double MaxTransactionLimit
         {
             get
             {
-               return  _maxTransactionLimit;
+                return _maxTransactionLimit;
             }
 
             set
@@ -71,7 +71,7 @@
 
         public double Balance => _balance;
 
-      
+
 
         public double WithdrawFee
         {
@@ -79,10 +79,10 @@
 
             set => _withdrawFee = value;
         }
-        double IBankAccount.Balance 
+        double IBankAccount.Balance
         {
-            get => _balance; 
-           
+            get => _balance;
+
         }
 
 
@@ -91,7 +91,7 @@
 
         }
 
-        public Account(AccountType accountType, double fees, double balance =0, double interest = 0, double limit=10000)
+        public Account(AccountType accountType, double fees, double balance = 0, double interest = 0, double limit = 10000)
         {
             _accountT = accountType;
             _withdrawFee = fees;
@@ -101,7 +101,7 @@
 
         }
 
-   
+
 
         /// <summary>
         /// implements deposit action
@@ -111,10 +111,10 @@
 
         public bool Deposit(double amount)
         {
-            
-            bool isDepositl=true;
+
+            bool isDepositl = true;
             _balance = _balance + amount;
-            
+
             return isDepositl;
         }
 
@@ -125,15 +125,21 @@
         /// <returns></returns>
         public bool Withdraw(double amount)
         {
-
-            if (_accountT == AccountType.SavingAccount)
+            bool isWithdraw;
+            if (amount > Balance)
+            {
+                isWithdraw = false;
+            }
+            else if (_accountT == AccountType.SavingAccount)
+            {
                 _balance = _balance - amount - _withdrawFee;
+                isWithdraw = true;
+            }
             else
+            {
                 _balance = _balance - amount;
-
-            
-            bool isWithdraw = true;
-
+                isWithdraw = true;
+            }
 
             return isWithdraw;
 
